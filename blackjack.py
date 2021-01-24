@@ -6,7 +6,7 @@ bet=100
 tudukeru = 1
 
 
-deck=[2, 3, 10, 10, 10, 10, 11]*decknumber*4
+deck=[2, 3,4,5,6,7,8,9, 10, 10, 10, 10, 11]*decknumber*4
 reset=int(len(deck)*0.2)
 def pickrandom(length): #random number
     pick = random.randint(0,length)
@@ -81,7 +81,7 @@ while(tudukeru):# main game start from here
         continue
     elif sum(selfcards[0])==21 and sum(oppcards)!=21:
         print("won")
-        money=moneyadd(money,bet)
+        money=moneyadd(money,bet*2.5)
         continue
     elif sum(selfcards[0])!=21 and sum(oppcards)==21 and oppcards[0]==11:
         print("opp "+ str(oppcards),sum(oppcards))
@@ -117,8 +117,8 @@ while(tudukeru):# main game start from here
                     print(f"you { str(selfcards[a])},{sum(selfcards[a][:-1])}" )
                 else:
                     selfcards[a].append(0)
-        if a==len(selfcards)-1:
-            handan=1
+            if a==len(selfcards)-1:
+                handan=1
                 # if 11 not in selfcards[a] and sum(selfcards[a])>21:
                 #     print("you " + str(selfcards[a]), sum(selfcards[a]))
                 #     print("lose")
@@ -170,6 +170,13 @@ while(tudukeru):# main game start from here
     for a in range(len(selfcards)):
         if selfcards[a][-1]!="up":
             print(f"your deck num {a+1} is {selfcards[a]}, {sum(selfcards[a])}")
+            if (selfcards[a][0]==10 and selfcards[a][1]==11 or selfcards[a][0]==11 and selfcards[a][1]==10) and sum(oppcards)<21 :
+                print("Blackjack!")
+                money =moneyadd(money,bet*2.5)
+                continue
+            elif (selfcards[a][0]==10 and selfcards[a][1]==11 or selfcards[a][0]==11 and selfcards[a][1]==10) and sum(oppcards)==21:
+                print("Push")
+                continue
             if sum(selfcards[a])>21:
                 print("lose")
                 money = moneysub(money, bet)
